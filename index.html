@@ -99,47 +99,9 @@
 
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity mindar-image-target="targetIndex: 0" light="type: ambient; intensity: 1;"> 
-        <a-plane src="#card10" position="0 0 0" rotation="0 0 0" scale="3 4 3"></a-plane>
-        <a-text id="subtitleText0" value="" position="0 -2 1" align="center" width="1.8" color="white"></a-text>
+        <a-plane src="#card10" position="0 0 0" rotation="0 0 0" scale="3.5 3 3"></a-plane>
       </a-entity>
     </a-scene>
-<script>
-  // 第一張圖的字幕輪播
-  const subtitles0 = [
-    "這是第一張圖的介紹。",
-    "更多說明...",
-    "結尾了，謝謝。"
-  ];
-
-  const subtitles1 = [
-    "這是第二張圖的介紹。",
-    "說明持續中...",
-    "本段完畢。"
-  ];
-
-  // 處理每個 target
-  function setupSubtitles(entitySelector, textSelector, subtitles) {
-    const entity = document.querySelector(entitySelector);
-    const text = document.querySelector(textSelector);
-
-    entity.addEventListener("targetFound", () => {
-      let index = 0;
-      text.setAttribute("value", subtitles[index]);
-      index++;
-
-      const interval = setInterval(() => {
-        text.setAttribute("value", subtitles[index]);
-        index++;
-        if (index >= subtitles.length) {
-          clearInterval(interval);
-        }
-      }, 3000);
-    });
-  }
-
-  setupSubtitles("a-entity[mindar-image-target='targetIndex: 0']", "#subtitle0", subtitles0);
-  setupSubtitles("a-entity[mindar-image-target='targetIndex: 1']", "#subtitle1", subtitles1);
-</script>
 
   </body>
 </html>
