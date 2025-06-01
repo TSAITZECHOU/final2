@@ -100,8 +100,41 @@
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
       <a-entity mindar-image-target="targetIndex: 0" light="type: ambient; intensity: 1;"> 
         <a-plane src="#card10" position="0 0 0" rotation="0 0 0" scale="3.5 3 3"></a-plane>
+         <a-text id="subtitleText" value="" position="0 -0.7 0" align="center" width="2" color="white"></a-text>
       </a-entity>
     </a-scene>
+
+     <script>
+      const subtitles = [
+        "這是一段圖片介紹。",
+        "這是第二句說明內容。",
+        "最後一句，謝謝觀看。"
+      ];
+
+      const textEl = document.querySelector("#subtitleText");
+      const entity = document.querySelector("a-entity[mindar-image-target]");
+      let timer = null;
+
+      entity.addEventListener("targetFound", () => {
+        let i = 0;
+        textEl.setAttribute("value", subtitles[i]);
+        i++;
+
+        timer = setInterval(() => {
+          if (i < subtitles.length) {
+            textEl.setAttribute("value", subtitles[i]);
+            i++;
+          } else {
+            clearInterval(timer);
+          }
+        }, 3000); // 每3秒換一行
+      });
+
+      entity.addEventListener("targetLost", () => {
+        clearInterval(timer);
+        textEl.setAttribute("value", "");
+      });
+    </script>
 
   </body>
 </html>
